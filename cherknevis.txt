@@ -1,0 +1,12 @@
+1 - ESP darkhast mizane va vaziat command ro migire.
+2 - agar commandi bood ke vaziat 'status' esh pending bood mire ke dastoori ke ommade ra anjam bede.
+3 - bad az anjame dastoor yek darkhast mizane va vaziat 'status' ra be 'executed' taghir mide.
+4 - baad ham vaziat jadidesh ro dar jadval e valves zakhire mikone.
+5 - vaziat e valve dar jadval valve va meghdar sensor rotoobat ham dar jadval e humidity sensor zakhire mishe
+
+
+shoro!
+1 - aval vaziat system ra ersal kone
+2 - sycle tabiE ro bere jelo
+
+
