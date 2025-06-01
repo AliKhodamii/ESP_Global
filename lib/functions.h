@@ -3,32 +3,33 @@
 #include <ArduinoJson.h>
 #include <ESP8266HTTPClient.h>
 #include "./variables.h"
+// #include "./constVariables.h"
 
-bool wifi_connect(String ssid, String password)
-{
-    WiFi.begin(ssid, password);
-    Serial.print("Connecting to ");
-    Serial.print(ssid);
+// bool wifiConnect(String ssid, String password)
+// {
+//     WiFi.begin(ssid, password);
+//     Serial.print("Connecting to ");
+//     Serial.print(ssid);
 
-    while (WiFi.status() != WL_CONNECTED)
-    {
-        Serial.print(".");
-        delay(500);
-    }
+//     while (WiFi.status() != WL_CONNECTED)
+//     {
+//         Serial.print(".");
+//         delay(500);
+//     }
 
-    Serial.println("");
-    Serial.print("Connected, IP address: ");
-    Serial.println(WiFi.localIP());
+//     Serial.println("");
+//     Serial.print("Connected, IP address: ");
+//     Serial.println(WiFi.localIP());
 
-    if (WiFi.status() == WL_CONNECTED)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
+//     if (WiFi.status() == WL_CONNECTED)
+//     {
+//         return true;
+//     }
+//     else
+//     {
+//         return false;
+//     }
+// }
 
 String json_encode(JsonDocument data)
 {
@@ -68,7 +69,7 @@ int httpPost(String url, String ssg_token, String data)
     return httpResCode;
 }
 
-String httpGet(String url, String sst_token)
+String httpGet(String url, String ssg_token)
 {
     WiFiClient client;
     HTTPClient http;
@@ -140,7 +141,8 @@ JsonDocument getSysData(String ssg_token)
     }
     else
     {
-        return;
+        JsonDocument nothing;
+        return nothing;
     }
 }
 
@@ -157,6 +159,7 @@ JsonDocument getCmdData(String ssg_token)
     }
     else
     {
-        return;
+        JsonDocument nothing;
+        return nothing;
     }
 }

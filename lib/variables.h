@@ -2,7 +2,6 @@
 #include <ArduinoJson.h>
 
 // SSG-Token
-String ssg_token = "abc";
 
 // pins
 int valveP = D7;
@@ -37,7 +36,3 @@ long unsigned int copyTimer = 0;
 
 // request codes
 int postResCode = 0;
-
-// wifi variables
-String ssid = "TP_Sed";
-String password = "87654321";
