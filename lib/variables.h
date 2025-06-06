@@ -1,38 +1,40 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
 
-// SSG-Token
+// ssg_token
+const String ssg_token = "abc";
 
-// pins
-int valveP = D7;
-int humidityP = A0;
+// Connect WiFi
+const String ssid = "TP_Sed";
+const String password = "87654321";
 
-// system variables
-bool valve = true;
-bool copy = false;
-int humidity = 1000;
-long unsigned int duration = 0;
+// Pins
+int valvePin = D0;
+int humiditySensorEn = D1;
+int humidityPin = A0;
 
-// cmd variables
-String valveCmd = "";
+// Time variable
+unsigned long int loop5sec = 0;
+unsigned long int loop1sec = 0;
+unsigned long int readHumidityLoop = 0;
+unsigned long int valveOpenTime = 0;
+unsigned long int duration = 0;
 
-// urls
-String postSysInfoAPI = "https://sed-smarthome.ir/ssg/php/postSysInfoAPI.php";
-String postCmdAPI = "https://sed-smarthome.ir/ssg/php/postCmdAPI.php";
-String getSysInfoAPI = "https://sed-smarthome.ir/ssg/php/getSysInfoAPI.php";
-String getCmdAPI = "https://sed-smarthome.ir/ssg/php/getCmdAPI.php";
-String DbUrl = "http://sed-smarthome.ir/dayi_hossein/server/insertIrrRec.php";
+// Api path
+String cmdUrl = "http://sed-smarthome.ir/ssg/ssgBackend/api/esp/commands.php";
+String postSysStatusApi = "http://sed-smarthome.ir/ssg/ssgBackend/api/esp/data.php";
 
-JsonDocument sysInfo, cmd;
+// System variables
+bool valveState = false;
+int humidity = 0;
 
-// jsons
-String sysInfoJson;
-String cmdJson;
+int t = 0;
+void pt()
+{
+    Serial.println("pt in variables.h: " + String(t));
+}
 
-// time
-long unsigned int every5s = 0;
-long unsigned int valveTimer = 0;
-long unsigned int copyTimer = 0;
-
-// request codes
-int postResCode = 0;
+void callpt()
+{
+    pt();
+}

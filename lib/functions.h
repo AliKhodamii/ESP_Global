@@ -2,8 +2,6 @@
 #include <ESP8266WiFi.h>
 #include <ArduinoJson.h>
 #include <ESP8266HTTPClient.h>
-#include "./variables.h"
-// #include "./constVariables.h"
 
 // bool wifiConnect(String ssid, String password)
 // {
@@ -104,12 +102,22 @@ String httpGet(String url, String ssg_token)
 
 int humidity_read(int analogPin)
 {
+
+    digitalWrite(humiditySensorEn, HIGH); // Enable the humidity sensor
+    delay(100);
+
     int humidity = 0;
     for (int i = 0; i < 10; i++)
     {
         humidity += analogRead(analogPin);
     }
     humidity = humidity / 10;
+
+    humidity = map(humidity, 400, 800, 100, 0); // Map the analog value to a percentage (0-100)
+    humidity = constrain(humidity, 0, 100); // Ensure the value is within the range of 0 to 100
+
+    delay(100);
+    digitalWrite(humiditySensorEn, LOW); // Disable the humidity sensor
     return humidity;
 }
 
@@ -128,38 +136,38 @@ String time()
     return time;
 }
 
-JsonDocument getSysData(String ssg_token)
-{
-    JsonDocument sysInfo;
-    String sysInfoJson;
+// JsonDocument getSysData(String ssg_token)
+// {
+//     JsonDocument sysInfo;
+//     String sysInfoJson;
 
-    sysInfoJson = httpGet(getSysInfoAPI, ssg_token);
-    sysInfo = json_decode(sysInfoJson);
-    if (sysInfo != "")
-    {
-        return sysInfo;
-    }
-    else
-    {
-        JsonDocument nothing;
-        return nothing;
-    }
-}
+//     sysInfoJson = httpGet(getSysInfoAPI, ssg_token);
+//     sysInfo = json_decode(sysInfoJson);
+//     if (sysInfo != "")
+//     {
+//         return sysInfo;
+//     }
+//     else
+//     {
+//         JsonDocument nothing;
+//         return nothing;
+//     }
+// }
 
-JsonDocument getCmdData(String ssg_token)
-{
-    JsonDocument cmd;
-    String cmdJson;
+// JsonDocument getCmdData(String ssg_token)
+// {
+//     JsonDocument cmd;
+//     String cmdJson;
 
-    cmdJson = httpGet(getCmdAPI, ssg_token);
-    cmd = json_decode(cmdJson);
-    if (cmd != "")
-    {
-        return cmd;
-    }
-    else
-    {
-        JsonDocument nothing;
-        return nothing;
-    }
-}
+//     cmdJson = httpGet(getCmdAPI, ssg_token);
+//     cmd = json_decode(cmdJson);
+//     if (cmd != "")
+//     {
+//         return cmd;
+//     }
+//     else
+//     {
+//         JsonDocument nothing;
+//         return nothing;
+//     }
+// }
