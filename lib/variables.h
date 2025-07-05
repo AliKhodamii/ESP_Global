@@ -1,6 +1,13 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
 
+// limits
+const int max_total_unsuccessful_request = 20;
+const int max_unsuccessful_request = 3;
+const int max_disconnect_time = 180;
+int unsuccessful_request_count = 0;
+int total_unsuccessful_request_count = 0;
+
 // ssg_token
 const String ssg_token = "abc";
 

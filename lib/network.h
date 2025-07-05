@@ -42,18 +42,39 @@ JsonDocument getCmd(String ssg_token, String cmdUrl)
     http.begin(client, cmdUrl);
     http.addHeader("content-type", "application/json");
 
-    int responseCode = http.POST(jsonData);
-    if (responseCode > 0)
+    int responseCode = 0;
+
+    while (responseCode != 200)
     {
-        Serial.print("HTTP Response code: ");
-        Serial.println(responseCode);
-        payload = http.getString();
-        // Serial.println(payload);
-    }
-    else
-    {
-        Serial.print("Error code: ");
-        Serial.println(responseCode);
+        responseCode = http.POST(jsonData);
+        if (responseCode > 0)
+        {
+            Serial.print("HTTP Response code: ");
+            Serial.println(responseCode);
+            payload = http.getString();
+            // Serial.println(payload);
+        }
+        else
+        {
+            Serial.print("Error code: ");
+            Serial.println(responseCode);
+        }
+        if (responseCode == 200)
+        {
+            unsuccessful_request_count = 0;
+            total_unsuccessful_request_count = 0;
+            break;
+        }
+        else
+        {
+            unsuccessful_request_count++;
+            total_unsuccessful_request_count++;
+        }
+        if (unsuccessful_request_count >= max_unsuccessful_request)
+        {
+            unsuccessful_request_count = 0;
+            break;
+        }
     }
     // Free resources
     http.end();
@@ -84,6 +105,7 @@ JsonDocument postStatus(bool valveState, int humidity, int duration, String valv
 
     // 1. Add token
     data["ssg_token"] = "abc";
+    data["millis"] = millis();
 
     // 2. Create 'valves' array
     JsonArray valves = data.createNestedArray("valves");
@@ -109,19 +131,40 @@ JsonDocument postStatus(bool valveState, int humidity, int duration, String valv
     http.begin(client, postSysStatusApi);
     http.addHeader("content-type", "application/json");
 
-    int responseCode = http.POST(jsonData);
-    if (responseCode > 0)
+    int responseCode = 0;
+    while (responseCode != 200)
     {
-        Serial.print("HTTP Response code: ");
-        Serial.println(responseCode);
-        payload = http.getString();
-        // Serial.println(payload);
+        responseCode = http.POST(jsonData);
+        if (responseCode > 0)
+        {
+            Serial.print("HTTP Response code: ");
+            Serial.println(responseCode);
+            payload = http.getString();
+            // Serial.println(payload);
+        }
+        else
+        {
+            Serial.print("Error code: ");
+            Serial.println(responseCode);
+        }
+        if (responseCode == 200)
+        {
+            unsuccessful_request_count = 0;
+            total_unsuccessful_request_count = 0;
+            break;
+        }
+        else
+        {
+            unsuccessful_request_count++;
+            total_unsuccessful_request_count++;
+        }
+        if (unsuccessful_request_count >= max_unsuccessful_request)
+        {
+            unsuccessful_request_count = 0;
+            break;
+        }
     }
-    else
-    {
-        Serial.print("Error code: ");
-        Serial.println(responseCode);
-    }
+
     // Free resources
     http.end();
 

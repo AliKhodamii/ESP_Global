@@ -29,7 +29,6 @@ void setup()
 void loop()
 {
 
-
     if (millis() - loop5sec > 5000)
     {
 
@@ -127,5 +126,11 @@ void loop()
         humidity = humidity_read(humidityPin);
         readHumidityLoop = millis();
         Serial.println("");
+    }
+
+    // Reset ESP after max unsuccessful request reached
+    if (total_unsuccessful_request_count >= max_total_unsuccessful_request)
+    {
+        ESP.restart();
     }
 }
