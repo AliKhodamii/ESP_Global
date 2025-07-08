@@ -15,10 +15,6 @@ const String ssg_token = "abc";
 const String ssid = "TP_Sed";
 const String password = "87654321";
 
-// Pins
-int valvePin = D0;
-int humiditySensorEn = D1;
-int humidityPin = A0;
 
 // Time variable
 unsigned long int loop5sec = 0;

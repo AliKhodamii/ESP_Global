@@ -1,5 +1,6 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
+#include "../lib/pins.h"
 #include "../lib/variables.h"
 #include "../lib/functions.h"
 #include "../lib/network.h"
