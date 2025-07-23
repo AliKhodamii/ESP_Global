@@ -136,6 +136,15 @@ String time()
     return time;
 }
 
+void flashSignal(int flashTime, int repeat){
+    for (int i = 0; i<repeat; i++){
+        digitalWrite(signalPin,HIGH);
+        delay(flashTime);
+        digitalWrite(signalPin,LOW);
+        delay(flashTime);
+    }
+}
+
 // JsonDocument getSysData(String ssg_token)
 // {
 //     JsonDocument sysInfo;

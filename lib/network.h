@@ -10,7 +10,7 @@ bool wifiConnect(String ssid, String password)
     while (WiFi.status() != WL_CONNECTED)
     {
         Serial.print(".");
-        delay(500);
+        flashSignal(250, 1);
     }
 
     Serial.println("");
@@ -63,6 +63,7 @@ JsonDocument getCmd(String ssg_token, String cmdUrl)
         {
             unsuccessful_request_count = 0;
             total_unsuccessful_request_count = 0;
+            flashSignal(250, 1);
             break;
         }
         else
@@ -151,6 +152,7 @@ JsonDocument postStatus(bool valveState, int humidity, int duration, String valv
         {
             unsuccessful_request_count = 0;
             total_unsuccessful_request_count = 0;
+            flashSignal(250, 1);
             break;
         }
         else
