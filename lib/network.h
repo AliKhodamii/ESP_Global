@@ -27,6 +27,33 @@ bool wifiConnect(String ssid, String password)
     }
 }
 
+void checkWifiConnection()
+{
+    unsigned long int lostConnectinTime = millis();
+    if (WiFi.status() != WL_CONNECTED)
+    {
+        WiFi.begin(ssid, password);
+        Serial.println("Lost Connection!!!");
+        Serial.print("Reconnecting to ");
+        Serial.print(ssid);
+        while (WiFi.status() != WL_CONNECTED)
+        {
+            Serial.print(".");
+            flashSignal(250, 1);
+
+            // Restart ESP after 5 min of disconnection
+            if (millis() - lostConnectinTime >= 5 * 60 * 1000)
+            {
+                Serial.println("");
+                Serial.println("Couldn't connect to ssid.\n Restarting the ESP...");
+                ESP.restart();
+            }
+        }
+        Serial.println("");
+        Serial.print("Connected, IP address: ");
+        Serial.println(WiFi.localIP());
+    }
+}
 JsonDocument getCmd(String ssg_token, String cmdUrl)
 {
     Serial.println("Getting new commands");

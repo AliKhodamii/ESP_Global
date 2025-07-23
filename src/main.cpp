@@ -29,7 +29,10 @@ void setup()
 
 void loop()
 {
+    // Check wifi connection
+    checkWifiConnection();
 
+    // Strat Loop
     if (millis() - loop5sec > 5000)
     {
 
